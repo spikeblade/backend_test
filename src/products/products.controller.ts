@@ -26,37 +26,62 @@ export class ProductsController {
   async findAll(@Res() res) {
     const data = await this.productsService.findAll();
     return res.status(HttpStatus.OK).json({
-      statusCode: HttpStatus.OK,
-      message: 'product founded',
+      statusCode: HttpStatus.FOUND,
+      message: 'products founded',
       data: data,
     });
   }
+
   @Get(':productId')
-  findOne(@Param('productId') productId: number): Promise<Product> {
-    return this.productsService.findOne(productId);
-  }
-  @Get(':productId/stores')
-  findStoresFromProduct(
+  async findOne(
     @Param('productId') productId: number,
-  ): Promise<Relationship[]> {
+    @Res() res,
+  ): Promise<Product> {
+    const data = await this.productsService.findOne(productId);
+    let message = 'product not founded';
+    let statusCode = HttpStatus.NOT_FOUND;
+    if (data) {
+      message = 'product founded';
+      statusCode = HttpStatus.OK;
+    }
+    return res.status(HttpStatus.OK).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
+  }
+
+  @Get(':productId/stores')
+  findStoresFromProduct(@Param('productId') productId: number) {
     return this.relationshipsService.findStoresFromProduct(productId);
   }
+
   @Get(':productId/store')
-  findStoreFromProduct(
-    @Param('productId') productId: number,
-  ): Promise<Relationship> {
+  findStoreFromProduct(@Param('productId') productId: number) {
     return this.relationshipsService.findStoreFromProduct(productId);
   }
+
   @Post()
-  async create(@Res() res, @Body() body): Promise<Product> {
+  async create(@Res() res, @Body() body) {
     const newProduct: ProductDto = body;
-    const data = await this.productsService.create(newProduct);
-    return res.status(HttpStatus.OK).json({
-      statusCode: HttpStatus.OK,
-      message: 'product created',
+    let data = null;
+    let message = 'product not created';
+    let statusCode = HttpStatus.BAD_REQUEST;
+    if (
+      newProduct.type === 'Perecedero' ||
+      newProduct.type === 'No perecedero'
+    ) {
+      data = await this.productsService.create(newProduct);
+      message = 'product created';
+      statusCode = HttpStatus.CREATED;
+    }
+    return res.status(statusCode).json({
+      statusCode: statusCode,
+      message: message,
       data: data,
     });
   }
+
   @Post(':productId/stores/:storeId')
   addStoreToProduct(
     @Param('productId') productId: number,
@@ -68,19 +93,33 @@ export class ProductsController {
     };
     return this.relationshipsService.addStoreToProduct(newRelationship);
   }
+
   @Put(':productId')
-  update(
+  async update(
     @Param('productId') productId: number,
     @Body() body,
-  ): Promise<Product> {
+    @Res() res,
+  ) {
     const newProduct: ProductDto = body;
-    return this.productsService.update(productId, newProduct);
+    const data = await this.productsService.update(productId, newProduct);
+    let message = 'product not updated';
+    let statusCode = HttpStatus.BAD_REQUEST;
+    if (data) {
+      message = 'product updated';
+      statusCode = HttpStatus.OK;
+    }
+    return res.status(statusCode).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
   }
+
   @Put(':productId/stores/:storeId')
   updateStoresFromProduct(
     @Param('productId') productId: number,
     @Param('storeId') storeId: number,
-  ): Promise<Relationship> {
+  ) {
     const newRelationship: RelationshipDto = {
       product: productId,
       store: storeId,
@@ -90,14 +129,25 @@ export class ProductsController {
       newRelationship.store,
     );
   }
+
   @Delete(':productId')
-  delete(@Param('productId') productId: number): Promise<Product> {
-    return this.productsService.delete(productId);
+  async delete(@Param('productId') productId: number, @Res() res) {
+    const data = await this.productsService.delete(productId);
+    let message = 'product not deleted';
+    let statusCode = HttpStatus.BAD_REQUEST;
+    if (data.affected != 0) {
+      message = 'product deleted';
+      statusCode = HttpStatus.OK;
+    }
+    return res.status(statusCode).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
   }
+
   @Delete(':productId/stores')
-  deleteStoresFromProduct(
-    @Param('productId') productId: number,
-  ): Promise<Relationship> {
+  deleteStoresFromProduct(@Param('productId') productId: number) {
     return this.relationshipsService.deleteStoreFromProduct(productId);
   }
 }

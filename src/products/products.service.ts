@@ -22,7 +22,9 @@ export class ProductsService {
     const toUpdate = await this.productsRepository.findOne({
       where: { id: productId },
     });
-
+    if (toUpdate === null) {
+      return null;
+    }
     const updated = Object.assign(toUpdate, newProduct);
 
     return await this.productsRepository.save(updated);
