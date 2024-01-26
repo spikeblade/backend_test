@@ -1,0 +1,658 @@
+{
+	"info": {
+		"_postman_id": "3fb3cc99-8cfe-4634-885c-695c36d89cea",
+		"name": "Tienda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5225970"
+	},
+	"item": [
+		{
+			"name": "Nueva tienda valida",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tienda1\",\r\n    \"city\": \"MDE\",\r\n    \"address\": \"Direccion de prueba\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores"
+			},
+			"response": [
+				{
+					"name": "Nueva tienda valida",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tienda1\",\r\n    \"city\": \"MDE\",\r\n    \"address\": \"Direccion de prueba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "122"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"7a-IT4i8EEbX9GMWVPtxUnoRcrCAQA\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:21:33 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 201,\n    \"message\": \"store created\",\n    \"data\": {\n        \"name\": \"tienda1\",\n        \"city\": \"MDE\",\n        \"address\": \"Direccion de prueba\",\n        \"id\": 1\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Nueva tienda no valida",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tienda1\",\r\n    \"city\": \"MDE1\",\r\n    \"address\": \"Direccion de prueba\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores"
+			},
+			"response": [
+				{
+					"name": "Nueva tienda no valida",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tienda1\",\r\n    \"city\": \"MDE1\",\r\n    \"address\": \"Direccion de prueba\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "60"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3c-I9spSivG8M8Qk356wCMYAwxLB90\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:24:49 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"store not created\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener todas las tiendas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tienda2\",\r\n    \"city\": \"BOG\",\r\n    \"address\": \"Direccion de prueba2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores"
+			},
+			"response": [
+				{
+					"name": "Obtener todas las tiendas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tienda2\",\r\n    \"city\": \"BOG\",\r\n    \"address\": \"Direccion de prueba2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "197"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"c5-MfAKlJd/qRAoUYmA3Uo+C+k7frg\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:26:44 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"stores founded\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"tienda1\",\n            \"city\": \"MDE\",\n            \"address\": \"Direccion de prueba\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"tienda2\",\n            \"city\": \"BOG\",\n            \"address\": \"Direccion de prueba2\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener una tienda por id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tienda2\",\r\n    \"city\": \"BOG\",\r\n    \"address\": \"Direccion de prueba2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores/1"
+			},
+			"response": [
+				{
+					"name": "Obtener una tienda por id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tienda2\",\r\n    \"city\": \"BOG\",\r\n    \"address\": \"Direccion de prueba2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores/1"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "122"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"7a-dfR6eHNk7ydhL7MMBHomrALIASk\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:27:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"store founded\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"tienda1\",\n        \"city\": \"MDE\",\n        \"address\": \"Direccion de prueba\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Error al obtener una tienda por id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tienda2\",\r\n    \"city\": \"BOG\",\r\n    \"address\": \"Direccion de prueba2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores/2"
+			},
+			"response": [
+				{
+					"name": "Error al obtener una tienda por id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tienda2\",\r\n    \"city\": \"BOG\",\r\n    \"address\": \"Direccion de prueba2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores/2"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "60"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3c-0UWhYCbipcED0YlQLGpTnXPb+I0\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:28:28 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"store not founded\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "actualizar una tienda",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tiendaActulizada\",\r\n    \"city\": \"CAT\",\r\n    \"address\": \"Direccion de prueba3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores/1"
+			},
+			"response": [
+				{
+					"name": "actualizar una tienda",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tiendaActulizada\",\r\n    \"city\": \"CAT\",\r\n    \"address\": \"Direccion de prueba3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores/1"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "132"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"84-aIowhEXniYrdf0Z9sNbqTnlMjxA\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:29:51 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"store updated\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"tiendaActulizada\",\n        \"city\": \"CAT\",\n        \"address\": \"Direccion de prueba3\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Error al actulizar una tineda que no existe",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tiendaActulizada\",\r\n    \"city\": \"CAT\",\r\n    \"address\": \"Direccion de prueba3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores/2"
+			},
+			"response": [
+				{
+					"name": "Error al actulizar una tineda que no existe",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tiendaActulizada\",\r\n    \"city\": \"CAT\",\r\n    \"address\": \"Direccion de prueba3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores/2"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "60"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3c-3qtq5xlaboHum7kLqMBNt+tkMzA\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:44:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"store not updated\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "borrar tienda",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tiendaActulizada\",\r\n    \"city\": \"CAT\",\r\n    \"address\": \"Direccion de prueba3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores/3"
+			},
+			"response": [
+				{
+					"name": "borrar tienda",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tiendaActulizada\",\r\n    \"city\": \"CAT\",\r\n    \"address\": \"Direccion de prueba3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores/3"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "75"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4b-VIwUQkvMxPFQDvu3tVqZAP3UHQw\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:46:03 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"store deleted\",\n    \"data\": {\n        \"raw\": [],\n        \"affected\": 1\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Error al borrar tienda",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"tiendaActulizada\",\r\n    \"city\": \"CAT\",\r\n    \"address\": \"Direccion de prueba3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/stores/3"
+			},
+			"response": [
+				{
+					"name": "Error al borrar tienda",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tiendaActulizada\",\r\n    \"city\": \"CAT\",\r\n    \"address\": \"Direccion de prueba3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/stores/3"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "79"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4f-vCs1pQoFjZXsVT5AoWl3nZZj0ks\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 14:46:50 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"store not deleted\",\n    \"data\": {\n        \"raw\": [],\n        \"affected\": 0\n    }\n}"
+				}
+			]
+		}
+	]
+}

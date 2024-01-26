@@ -1,0 +1,595 @@
+{
+	"info": {
+		"_postman_id": "d91d09b0-f417-448e-be13-5f9a4afc466f",
+		"name": "Producto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5225970"
+	},
+	"item": [
+		{
+			"name": "Nuevo producto valido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Test6\",\r\n    \"price\": 2,\r\n    \"type\": \"No perecedero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/products"
+			},
+			"response": [
+				{
+					"name": "Nuevo producto valido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test6\",\r\n    \"price\": 2,\r\n    \"type\": \"No perecedero\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/products"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "110"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6e-i9h8FJrT1rLWRXtGyn5KYIEEQFM\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 02:41:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 201,\n    \"message\": \"product created\",\n    \"data\": {\n        \"name\": \"Test6\",\n        \"price\": 2,\n        \"type\": \"No perecedero\",\n        \"id\": 4\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Encontrar todos los productos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5152/prueba-practica/v1/products"
+			},
+			"response": [
+				{
+					"name": "todos los productos",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5152/prueba-practica/v1/products"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "163"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"a3-g1O4ghQnsP3ik5kWa/7MFTYtfuc\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 02:17:09 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"product founded\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Test1\",\n            \"price\": 2,\n            \"type\": \"Perecedero\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Test2\",\n            \"price\": 1,\n            \"type\": \"Perecedero\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Encontrar producto con Error",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5152/prueba-practica/v1/products/3"
+			},
+			"response": [
+				{
+					"name": "Encontrar producto con Error",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5152/prueba-practica/v1/products/3"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "62"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3e-T3gJxJrUw1ReF2eGmVYatUMmhWg\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 02:30:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"product not founded\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Encontra Producto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5152/prueba-practica/v1/products/1"
+			},
+			"response": [
+				{
+					"name": "Encontra Producto",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:5152/prueba-practica/v1/products/1"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "107"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6b-bcJr7ogEUKSyRxUzSSLQOswDUpw\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 02:32:54 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"product founded\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Test1\",\n        \"price\": 2,\n        \"type\": \"Perecedero\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Nuevo producto no valido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Test5\",\r\n    \"price\": 2,\r\n    \"type\": \"No \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/products"
+			},
+			"response": [
+				{
+					"name": "Nuevo producto no valido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test5\",\r\n    \"price\": 2,\r\n    \"type\": \"No \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/products"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "62"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3e-dTnqm5PX+d3Sf8fYzprs/KHEVjY\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 02:40:34 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"product not created\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar producto que no existe",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Test2\",\r\n    \"price\": 100,\r\n    \"type\": \"Perecedero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/products/9"
+			},
+			"response": [
+				{
+					"name": "Actualizar producto que no existe",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Test2\",\r\n    \"price\": 100,\r\n    \"type\": \"Perecedero\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/products/9"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "62"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3e-Rm3N5oxBetayxGDDCEhz9MDc9kU\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 02:58:18 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"product not updated\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Actulizar Producto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Tijeras\",\r\n    \"price\": 105,\r\n    \"type\": \"Perecedero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/products/1"
+			},
+			"response": [
+				{
+					"name": "Actulizar Producto",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tijeras\",\r\n    \"price\": 105,\r\n    \"type\": \"Perecedero\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/products/1"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "111"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6f-8MyBvUHe/s6Sgl35JH6hwQMIj78\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 02:59:51 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"product updated\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Tijeras\",\n        \"price\": 105,\n        \"type\": \"Perecedero\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Borrar producto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Tijeras\",\r\n    \"price\": 105,\r\n    \"type\": \"Perecedero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/products/2"
+			},
+			"response": [
+				{
+					"name": "Borrar producto",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tijeras\",\r\n    \"price\": 105,\r\n    \"type\": \"Perecedero\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/products/2"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "77"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4d-0vx+rUNyc/0ZSkhu1AbhNRj9sP8\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 03:05:33 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 200,\n    \"message\": \"product deleted\",\n    \"data\": {\n        \"raw\": [],\n        \"affected\": 1\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "error al borrar producto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Tijeras\",\r\n    \"price\": 105,\r\n    \"type\": \"Perecedero\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5152/prueba-practica/v1/products/2"
+			},
+			"response": [
+				{
+					"name": "error al borrar producto",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tijeras\",\r\n    \"price\": 105,\r\n    \"type\": \"Perecedero\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5152/prueba-practica/v1/products/2"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "81"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"51-D7+9KzZ6iODTNJe1oOZKxgpYX4s\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Jan 2024 03:09:05 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"product not deleted\",\n    \"data\": {\n        \"raw\": [],\n        \"affected\": 0\n    }\n}"
+				}
+			]
+		}
+	]
+}
