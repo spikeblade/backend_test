@@ -13,11 +13,14 @@ import { ProductsService } from './products.service';
 import { RelationshipsService } from '../relationships/relationships.service';
 import { ProductDto } from './product.dto';
 import { RelationshipDto } from '../relationships/relationship.dto';
+import { StoresService } from '../stores/stores.service';
+
 @Controller('products')
 export class ProductsController {
   constructor(
     private productsService: ProductsService,
     private relationshipsService: RelationshipsService,
+    private storesService: StoresService,
   ) {}
 
   @Get()
@@ -47,13 +50,57 @@ export class ProductsController {
   }
 
   @Get(':productId/stores')
-  findStoresFromProduct(@Param('productId') productId: number) {
-    return this.relationshipsService.findStoresFromProduct(productId);
+  async findStoresFromProduct(
+    @Param('productId') productId: number,
+    @Res() res,
+  ) {
+    const stores = [];
+    const relatedStores =
+      await this.relationshipsService.findStoresFromProduct(productId);
+    for (const store of relatedStores) {
+      const found = await this.storesService.findOne(store.store);
+      if (found) {
+        stores.push(found);
+      }
+    }
+    let message = 'stores by product id not founded';
+    let statusCode = HttpStatus.NOT_FOUND;
+    if (stores.length > 0) {
+      message = 'stores by product id founded';
+      statusCode = HttpStatus.OK;
+    }
+    return res.status(HttpStatus.OK).json({
+      statusCode: statusCode,
+      message: message,
+      data: stores,
+    });
   }
 
-  @Get(':productId/store')
-  findStoreFromProduct(@Param('productId') productId: number) {
-    return this.relationshipsService.findStoreFromProduct(productId);
+  @Get(':productId/store/:storeId')
+  async findStoreFromProduct(
+    @Param('productId') productId: number,
+    @Param('storeId') storeId: number,
+    @Res() res,
+  ) {
+    let data = null;
+    const relatedStore = await this.relationshipsService.findStoreFromProduct(
+      productId,
+      storeId,
+    );
+    if (relatedStore) {
+      data = await this.storesService.findOne(relatedStore.store);
+    }
+    let message = 'store by product id not founded';
+    let statusCode = HttpStatus.NOT_FOUND;
+    if (data) {
+      message = 'store by product id founded';
+      statusCode = HttpStatus.OK;
+    }
+    return res.status(HttpStatus.OK).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
   }
 
   @Post()
@@ -78,15 +125,34 @@ export class ProductsController {
   }
 
   @Post(':productId/stores/:storeId')
-  addStoreToProduct(
+  async addStoreToProduct(
     @Param('productId') productId: number,
     @Param('storeId') storeId: number,
+    @Res() res,
   ) {
     const newRelationship: RelationshipDto = {
       product: productId,
       store: storeId,
     };
-    return this.relationshipsService.addStoreToProduct(newRelationship);
+    let data = null;
+    let message = 'relationship not created';
+    let statusCode = HttpStatus.BAD_REQUEST;
+    const product = await this.productsService.findOne(productId);
+    const store = await this.storesService.findOne(storeId);
+    const relation = await this.relationshipsService.findStoreFromProduct(
+      productId,
+      storeId,
+    );
+    if (product && store && relation == null) {
+      data = await this.relationshipsService.addStoreToProduct(newRelationship);
+      message = 'relationship created';
+      statusCode = HttpStatus.CREATED;
+    }
+    return res.status(statusCode).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
   }
 
   @Put(':productId')
@@ -116,21 +182,6 @@ export class ProductsController {
     });
   }
 
-  @Put(':productId/stores/:storeId')
-  updateStoresFromProduct(
-    @Param('productId') productId: number,
-    @Param('storeId') storeId: number,
-  ) {
-    const newRelationship: RelationshipDto = {
-      product: productId,
-      store: storeId,
-    };
-    return this.relationshipsService.updateStoresFromProduct(
-      newRelationship,
-      newRelationship.store,
-    );
-  }
-
   @Delete(':productId')
   async delete(@Param('productId') productId: number, @Res() res) {
     const data = await this.productsService.delete(productId);
@@ -145,10 +196,5 @@ export class ProductsController {
       message: message,
       data: data,
     });
-  }
-
-  @Delete(':productId/stores')
-  deleteStoresFromProduct(@Param('productId') productId: number) {
-    return this.relationshipsService.deleteStoreFromProduct(productId);
   }
 }

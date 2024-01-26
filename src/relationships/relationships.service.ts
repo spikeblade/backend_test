@@ -10,34 +10,25 @@ export class RelationshipsService {
     @InjectRepository(Relationship)
     private relationshipsRepository: Repository<Relationship>,
   ) {}
+
   async addStoreToProduct(
     newRelationship: RelationshipDto,
   ): Promise<Relationship> {
     return await this.relationshipsRepository.save(newRelationship);
   }
+
   async findStoresFromProduct(productId: number): Promise<Relationship[]> {
     return await this.relationshipsRepository.find({
       where: { product: productId },
     });
   }
-  async findStoreFromProduct(productId: number): Promise<Relationship> {
-    return await this.relationshipsRepository.findOne({
-      where: { product: productId },
-    });
-  }
-  async updateStoresFromProduct(
-    newRelationship: RelationshipDto,
+
+  async findStoreFromProduct(
     productId: number,
+    storeId: number,
   ): Promise<Relationship> {
-    const toUpdate = await this.relationshipsRepository.findOne({
-      where: { product: productId },
+    return await this.relationshipsRepository.findOne({
+      where: { product: productId, store: storeId },
     });
-
-    const updated = Object.assign(toUpdate, newRelationship);
-
-    return await this.relationshipsRepository.save(updated);
-  }
-  async deleteStoreFromProduct(productId: number): Promise<any> {
-    return await this.relationshipsRepository.delete(productId);
   }
 }
