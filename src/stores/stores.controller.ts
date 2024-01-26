@@ -8,6 +8,8 @@ import {
   Body,
 } from '@nestjs/common';
 import { StoresService } from './stores.service';
+import { StoreDto } from './store.dto';
+import { Store } from './store.entity';
 
 @Controller('stores')
 export class StoresController {
@@ -23,12 +25,12 @@ export class StoresController {
   }
   @Post()
   create(@Body() body) {
-    const newStore: any = body;
+    const newStore: StoreDto = body;
     return this.storesService.create(newStore);
   }
   @Put(':storeId')
   update(@Param('storeId') storeId: number, @Body() body) {
-    const newStore: any = body;
+    const newStore: Store = body;
     return this.storesService.update(storeId, newStore);
   }
   @Delete(':storeId')

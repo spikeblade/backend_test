@@ -1,20 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { StoreDto } from './store.dto';
+import { Store } from './store.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class StoresService {
-  findAll(): any {
-    return 'find all funcionando';
+  constructor(
+    @InjectRepository(Store) private storesRepository: Repository<Store>,
+  ) {}
+  async findAll(): Promise<Store[]> {
+    return await this.storesRepository.find();
   }
-  findOne(storeId: number) {
-    return `find one funcionando con storeId: ${storeId}`;
+  async findOne(storeId: number): Promise<Store> {
+    return await this.storesRepository.findOne({ where: { id: storeId } });
   }
-  create(newStore: any) {
-    return newStore;
+  async create(newStore: StoreDto): Promise<Store> {
+    return await this.storesRepository.save(newStore);
   }
-  update(storeId: number, newStore: any) {
-    return newStore;
+  async update(storeId: number, newStore: StoreDto): Promise<Store> {
+    const toUpdate = await this.storesRepository.findOne({
+      where: { id: storeId },
+    });
+
+    const updated = Object.assign(toUpdate, newStore);
+
+    return await this.storesRepository.save(updated);
   }
-  delete(storeId: number) {
-    return `delete funcionando con storeId: ${storeId}`;
+  async delete(storeId: number): Promise<any> {
+    return await this.storesRepository.delete(storeId);
   }
 }

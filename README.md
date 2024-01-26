@@ -31,6 +31,12 @@
 ```bash
 $ npm install
 ```
+## Data Base for work
+
+get a docker image of my sql 
+
+docker run --name prueba_cesar_mysql -v /opt/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=passTest -d mysql -p 3306:3306
+create a DB name Test  in the container for use
 
 ## Running the app
 

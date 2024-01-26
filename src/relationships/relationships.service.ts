@@ -1,20 +1,43 @@
 import { Injectable } from '@nestjs/common';
+import { RelationshipDto } from './relationship.dto';
+import { Relationship } from './relationship.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class RelationshipsService {
-  addStoreToProduct(productId: number, storeId: number): any {
-    return storeId;
+  constructor(
+    @InjectRepository(Relationship)
+    private relationshipsRepository: Repository<Relationship>,
+  ) {}
+  async addStoreToProduct(
+    newRelationship: RelationshipDto,
+  ): Promise<Relationship> {
+    return await this.relationshipsRepository.save(newRelationship);
   }
-  findStoresFromProduct(productId: number) {
-    return `find all stores by product funcionando con productId: ${productId}`;
+  async findStoresFromProduct(productId: number): Promise<Relationship[]> {
+    return await this.relationshipsRepository.find({
+      where: { product: productId },
+    });
   }
-  findStoreFromProduct(productId: number) {
-    return `find one store by product funcionando con productId: ${productId}`;
+  async findStoreFromProduct(productId: number): Promise<Relationship> {
+    return await this.relationshipsRepository.findOne({
+      where: { product: productId },
+    });
   }
-  updateStoresFromProduct(productId: number, storeId: number) {
-    return storeId;
+  async updateStoresFromProduct(
+    newRelationship: RelationshipDto,
+    productId: number,
+  ): Promise<Relationship> {
+    const toUpdate = await this.relationshipsRepository.findOne({
+      where: { product: productId },
+    });
+
+    const updated = Object.assign(toUpdate, newRelationship);
+
+    return await this.relationshipsRepository.save(updated);
   }
-  deleteStoreFromProduct(productId: number) {
-    return `delete funcionando con productId: ${productId}`;
+  async deleteStoreFromProduct(productId: number): Promise<any> {
+    return await this.relationshipsRepository.delete(productId);
   }
 }
