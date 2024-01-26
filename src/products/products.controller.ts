@@ -12,8 +12,6 @@ import {
 import { ProductsService } from './products.service';
 import { RelationshipsService } from '../relationships/relationships.service';
 import { ProductDto } from './product.dto';
-import { Product } from './product.entity';
-import { Relationship } from '../relationships/relationship.entity';
 import { RelationshipDto } from '../relationships/relationship.dto';
 @Controller('products')
 export class ProductsController {
@@ -26,17 +24,14 @@ export class ProductsController {
   async findAll(@Res() res) {
     const data = await this.productsService.findAll();
     return res.status(HttpStatus.OK).json({
-      statusCode: HttpStatus.FOUND,
+      statusCode: HttpStatus.OK,
       message: 'products founded',
       data: data,
     });
   }
 
   @Get(':productId')
-  async findOne(
-    @Param('productId') productId: number,
-    @Res() res,
-  ): Promise<Product> {
+  async findOne(@Param('productId') productId: number, @Res() res) {
     const data = await this.productsService.findOne(productId);
     let message = 'product not founded';
     let statusCode = HttpStatus.NOT_FOUND;
@@ -86,7 +81,7 @@ export class ProductsController {
   addStoreToProduct(
     @Param('productId') productId: number,
     @Param('storeId') storeId: number,
-  ): Promise<Relationship> {
+  ) {
     const newRelationship: RelationshipDto = {
       product: productId,
       store: storeId,
@@ -101,12 +96,18 @@ export class ProductsController {
     @Res() res,
   ) {
     const newProduct: ProductDto = body;
-    const data = await this.productsService.update(productId, newProduct);
+    let data = null;
     let message = 'product not updated';
     let statusCode = HttpStatus.BAD_REQUEST;
-    if (data) {
-      message = 'product updated';
-      statusCode = HttpStatus.OK;
+    if (
+      newProduct.type === 'Perecedero' ||
+      newProduct.type === 'No perecedero'
+    ) {
+      data = await this.productsService.update(productId, newProduct);
+      if (data) {
+        message = 'product updated';
+        statusCode = HttpStatus.OK;
+      }
     }
     return res.status(statusCode).json({
       statusCode: statusCode,

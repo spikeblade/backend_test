@@ -6,6 +6,8 @@ import {
   Get,
   Param,
   Body,
+  Res,
+  HttpStatus,
 } from '@nestjs/common';
 import { StoresService } from './stores.service';
 import { StoreDto } from './store.dto';
@@ -16,25 +18,84 @@ export class StoresController {
   constructor(private storesService: StoresService) {}
 
   @Get()
-  findAll() {
-    return this.storesService.findAll();
+  async findAll(@Res() res) {
+    const data = await this.storesService.findAll();
+    return res.status(HttpStatus.OK).json({
+      statusCode: HttpStatus.OK,
+      message: 'stores founded',
+      data: data,
+    });
   }
+
   @Get(':storeId')
-  findOne(@Param('storeId') storeId: number) {
-    return this.storesService.findOne(storeId);
+  async findOne(@Param('storeId') storeId: number, @Res() res) {
+    const data = await this.storesService.findOne(storeId);
+    let message = 'store not founded';
+    let statusCode = HttpStatus.NOT_FOUND;
+    if (data) {
+      message = 'store founded';
+      statusCode = HttpStatus.OK;
+    }
+    return res.status(HttpStatus.OK).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
   }
+
   @Post()
-  create(@Body() body) {
+  async create(@Body() body, @Res() res) {
     const newStore: StoreDto = body;
-    return this.storesService.create(newStore);
+    let data = null;
+    let message = 'store not created';
+    let statusCode = HttpStatus.BAD_REQUEST;
+    const regexp = new RegExp(/^[A-Z]{3,3}$/);
+    if (regexp.test(newStore.city)) {
+      data = await this.storesService.create(newStore);
+      message = 'store created';
+      statusCode = HttpStatus.CREATED;
+    }
+    return res.status(statusCode).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
   }
+
   @Put(':storeId')
-  update(@Param('storeId') storeId: number, @Body() body) {
+  async update(@Param('storeId') storeId: number, @Body() body, @Res() res) {
     const newStore: Store = body;
-    return this.storesService.update(storeId, newStore);
+    let data = null;
+    let message = 'store not updated';
+    let statusCode = HttpStatus.BAD_REQUEST;
+    const regexp = new RegExp(/[A-Z]{3,3}/);
+    if (regexp.test(newStore.city)) {
+      data = await this.storesService.update(storeId, newStore);
+      if (data) {
+        message = 'store updated';
+        statusCode = HttpStatus.OK;
+      }
+    }
+    return res.status(statusCode).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
   }
+
   @Delete(':storeId')
-  delete(@Param('storeId') storeId: number) {
-    return this.storesService.delete(storeId);
+  async delete(@Param('storeId') storeId: number, @Res() res) {
+    const data = await this.storesService.delete(storeId);
+    let message = 'store not deleted';
+    let statusCode = HttpStatus.BAD_REQUEST;
+    if (data.affected != 0) {
+      message = 'store deleted';
+      statusCode = HttpStatus.OK;
+    }
+    return res.status(statusCode).json({
+      statusCode: statusCode,
+      message: message,
+      data: data,
+    });
   }
 }
